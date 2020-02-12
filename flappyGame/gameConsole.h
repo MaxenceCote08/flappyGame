@@ -1,5 +1,7 @@
 #pragma once
 #include "Player.h"
+#include "conio.h"
+#include <time.h>
 #include <iostream>
 
 using namespace std;
@@ -15,10 +17,14 @@ public:
 
 	char getConsole(int x, int y);
 	void setConsole(int x, int y, char c);
-
+	void setScore();
+	void playConsole();
+	bool isDead();
 	void createObstacle(int y);
+	bool isObstacle();
 	void refreshConsole();
-
+	void movePlayerUp();
+	void movePlayerDown();
 	friend ostream & operator << (ostream &out, gameConsole &c);
 private:
 	Player player;

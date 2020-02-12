@@ -6,8 +6,8 @@ public:
 	Player();
 	~Player();
 
-	unsigned int getLives();
-	void setLives(unsigned int i);
+	unsigned int getDeaths();
+	void setDeaths(unsigned int i);
 	unsigned int getScore();
 	void setScore(unsigned int i);
 	int getX();
@@ -16,7 +16,7 @@ public:
 	void setY(int i);
 
 private:
-	unsigned int lives;
+	unsigned int deaths;
 	unsigned int highscore;
 	int position_x;
 	int position_y;

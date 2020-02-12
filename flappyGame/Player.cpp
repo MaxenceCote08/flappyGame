@@ -1,13 +1,13 @@
 #include "Player.h"
 
 //SET AND GET
-unsigned int Player::getLives()
+unsigned int Player::getDeaths()
 {
-	return lives;
+	return deaths;
 }
-void Player::setLives(unsigned int i)
+void Player::setDeaths(unsigned int i)
 {
-	lives = i;
+	deaths = i;
 }
 unsigned int Player::getScore()
 {
@@ -36,7 +36,7 @@ void Player::setY(int i)
 
 //Constructeur and destructeur
 
-Player::Player() : lives(0), highscore(0) {
+Player::Player() : deaths(0), highscore(0), position_x(12), position_y(30) {
 
 }
 
