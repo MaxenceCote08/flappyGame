@@ -1,4 +1,5 @@
 #include "gameConsole.h"
+#include "Scoreboard.h"
 
 //Constructeur and destructeur
 gameConsole::gameConsole() {
@@ -149,6 +150,7 @@ void gameConsole::refreshConsole()
 	else
 	{
 		player.setDeaths(1);
+		
 	}
 
 	for (int i = 0; i < MAX_X; i++)
@@ -209,7 +211,18 @@ void gameConsole::playConsole()
 bool gameConsole::isDead()
 {
 	if (player.getDeaths() > 0)
+	{
+		string name;
+		player.setHighscore();
+		cout << "Enter your username (max 15 characters)" << endl;
+		cin >> name;
+		if(name.length()>15)
+			name = "UnknownUser";
+		player.setName(name);
+		myScoreBoard.addScore(player.getInfo());
+		myScoreBoard.print();
 		return true;
+	}
 	else
 		return false;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "conio.h"
+#include "scoreboard.h"
 #include <time.h>
 #include <iostream>
 
@@ -28,5 +29,6 @@ public:
 	friend ostream & operator << (ostream &out, gameConsole &c);
 private:
 	Player player;
+	scoreboard myScoreBoard;
 	char console[MAX_X][MAX_Y];
 };
