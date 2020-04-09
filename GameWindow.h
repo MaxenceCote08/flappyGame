@@ -18,13 +18,15 @@ public:
 	void start();
 	void keyPressEvent(QKeyEvent* event);
 	Bird* getBird();
+	Pillars* getPillars(QString pillarName);
+
 
 private:
 	int width = 800;
 	int height = 500;
+	int score = 0;
 	QGraphicsView* view;
 	Bird* bird;
 	Pillars* pillarsL,*pillarsM, *pillarsR;
-	QPushButton* reset;
 	QGraphicsProxyWidget *proxy;
 };

@@ -18,11 +18,11 @@ class MenuWindow : public QGraphicsScene
 public:
 	MenuWindow();
 	~MenuWindow();
-	void keyPressEvent(QKeyEvent* event);
 
 private:
 	int width = 450;
 	int height = 500;
+	bool isGameOn = false;
 
 	QGraphicsView* view;
 	QMainWindow* main;
@@ -39,6 +39,4 @@ private slots:
 	void playFunc();
 	void creditFunc();
 	void quitFunc();
-	void menuFunc();
-
 };

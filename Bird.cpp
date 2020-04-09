@@ -50,6 +50,11 @@ void Bird::keyPressEvent(QKeyEvent*)
 
 void Bird::fly()
 {
+	if (firstJump) {
+		emit hasMoved();
+		firstJump = false;
+	}
+
 	//Animation du vol
 	yAnimation->stop();
 	yAnimation->setStartValue(y());
@@ -85,4 +90,13 @@ void Bird::kill()
 bool Bird::getBirdState()
 {
 	return isAlive;
+}
+
+void Bird::reset()
+{
+	isAlive = true;
+	firstJump = true;
+	setY(sceneHeight / 2);
+	setPos(sceneWidth / 2 - width / 2, y());
+	yAnimation->stop();
 }

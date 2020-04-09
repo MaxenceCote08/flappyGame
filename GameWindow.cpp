@@ -28,6 +28,11 @@ GameWindow::GameWindow()
 	connect(pillarsM, &Pillars::birdHit, [=] { end(); });
 	connect(pillarsR, &Pillars::birdHit, [=] { end(); });
 
+	//Connections des signaux pour lupdate du score
+	connect(pillarsL, &Pillars::upScore, [=] {score++; 	qDebug() << "score :" << score << endl; });
+	connect(pillarsM, &Pillars::upScore, [=] {score++; 	qDebug() << "score :" << score << endl; });
+	connect(pillarsR, &Pillars::upScore, [=] {score++; 	qDebug() << "score :" << score << endl; });
+
 	//Enleve les scrollbars
 	view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -48,10 +53,13 @@ void GameWindow::end()
 
 void GameWindow::start()
 {
-	bird->fall();
-	pillarsL->slide();
-	pillarsM->slide();
-	pillarsR->slide();
+	pillarsL->reset();
+	pillarsM->reset();
+	pillarsR->reset();
+	connect(bird, &Bird::hasMoved, [=] {
+		pillarsL->slide();
+		pillarsM->slide();
+		pillarsR->slide(); });
 }
 
 QGraphicsView* GameWindow::returnView()
@@ -67,4 +75,26 @@ void GameWindow::keyPressEvent(QKeyEvent* event)
 Bird* GameWindow::getBird()
 {
 	return bird;
+}
+
+Pillars* GameWindow::getPillars(QString pillarName)
+{
+	if (pillarName == "pillarsL")
+	{
+		return pillarsL;
+	}
+
+	else if (pillarName == "pillarsM")
+	{
+		return pillarsM;
+	}
+
+	else if (pillarName == "pillarsR")
+	{
+		return pillarsR;
+	}
+	else
+	{
+		return nullptr;
+	}
 }

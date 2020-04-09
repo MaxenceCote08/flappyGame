@@ -10,9 +10,6 @@ MenuWindow::MenuWindow()
 	QAction *playAction = new QAction("Play");
 	connect(playAction, SIGNAL(triggered()), SLOT(playFunc()));
 
-	QAction *menuAction = new QAction("Menu");
-	connect(menuAction, SIGNAL(triggered()), SLOT(menuFunc()));
-
 	QAction *creditAction = new QAction("Credit");
 	connect(creditAction, SIGNAL(triggered()), SLOT(creditFunc()));
 
@@ -76,7 +73,6 @@ MenuWindow::MenuWindow()
 
 	menu->setTitle("Menu");
 	menu->addAction(playAction);
-	menu->addAction(menuAction);
 	menu->addAction(creditAction);
 	menu->addAction(quitAction);
 	
@@ -106,9 +102,21 @@ MenuWindow::~MenuWindow()
 
 void MenuWindow::playFunc()
 {
-	main->setCentralWidget(window.returnView());
-	window.start();
+	if (!isGameOn)
+	{
+		main->setCentralWidget(window.returnView());
+		window.start();
+		isGameOn = true;
+	}
+	else 
+	{
+		window.getBird()->reset();
+		window.getPillars("pillarsL")->reset();
+		window.getPillars("pillarsM")->reset();
+		window.getPillars("pillarsR")->reset();
+	}
 }
+
 void MenuWindow::creditFunc()
 {
 	QMessageBox* message = new QMessageBox();
@@ -117,17 +125,7 @@ void MenuWindow::creditFunc()
 	message->show();
 }
 
-void MenuWindow::menuFunc()
-{
-}
-
 void MenuWindow::quitFunc()
 {
 	QApplication::quit();
-}
-
-void MenuWindow::keyPressEvent(QKeyEvent* event)
-{
-	window.getBird()->setFocus();
-	window.keyPressEvent(event);
 }

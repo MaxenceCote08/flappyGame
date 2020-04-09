@@ -13,26 +13,32 @@ Pillars::Pillars(int startingXPos)
 	//Ajout des 2 pilliers dans un groupe (pour gerer les collisions plus tard)
 	addToGroup(top);
 	addToGroup(bottom);
-
-	//Deplacement vers la gauche
-	//slide();
 }
 
 Pillars::~Pillars()
 {
+	qDebug() << "Pillars destroyed" << endl;
 	delete top; // pas sur si cest necessaire ??
 	delete bottom; // pas sur si cest necessaire ??
-	qDebug() << "Pillars Destroyed" << endl;
 }
 
 qreal Pillars::x() const
 {
 	return m_x;
 }
+
 void Pillars::stop()
 {
 	xAnimation->stop();
 }
+
+void Pillars::reset()
+{
+	slide();
+	stop();
+	isFirstSlide = true;
+}
+
 void Pillars::setX(qreal x)
 {
 	moveBy(x - m_x,0);
@@ -41,23 +47,33 @@ void Pillars::setX(qreal x)
 	{
 		emit birdHit();
 	}
+	else
+	{
+		if (x <= 300 && x>0 && scoreFlag)
+		{
+			scoreFlag = false;
+			emit upScore();
+		}
+		else if (x <=0)
+		{
+			scoreFlag = true;
+		}
+	}
 }
 
 void Pillars::slide()
 {
-
 	//Choix de la position du pillier du bas au hasard
 	randomizeHeight();
 
-	int start;
-	if (isFirstSlide) // si first slide, on start selon la position initiale demandee (pour choix de lespacement), sinon on start a la largeur de la fenetre
+	int start = resetXValue;
+	if (!isFirstSlide)
 	{
-		start = resetXValue;
-		isFirstSlide = false;
+		start = 800;
 	}
 	else
 	{
-		start = 800;
+		isFirstSlide = false;
 	}
 	//Animation du slide vers la gauche
 	xAnimation = new QPropertyAnimation(this, "x", this);

@@ -18,9 +18,13 @@ public :
 	void fall();
 	void kill();
 	bool getBirdState();
+	void reset();
 
 public slots:
 	void setY(qreal y);
+
+signals:
+	void hasMoved();
 
 private:
 	int height = 50;
@@ -28,6 +32,7 @@ private:
 	int sceneHeight;
 	int sceneWidth;
 	bool isAlive = true;
+	bool firstJump = true;
 	qreal groundDistance;
 	qreal m_y=0;
 	QPropertyAnimation* yAnimation;
