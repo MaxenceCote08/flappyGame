@@ -29,7 +29,7 @@ private:
 
 	QPushButton* play;
 	QPushButton* quit;
-	QPushButton* credit;
+	QPushButton* credits;
 
 	QLabel* title;
 

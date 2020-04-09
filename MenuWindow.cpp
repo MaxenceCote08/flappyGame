@@ -10,7 +10,7 @@ MenuWindow::MenuWindow()
 	QAction *playAction = new QAction("Play");
 	connect(playAction, SIGNAL(triggered()), SLOT(playFunc()));
 
-	QAction *creditAction = new QAction("Credit");
+	QAction *creditAction = new QAction("Credits");
 	connect(creditAction, SIGNAL(triggered()), SLOT(creditFunc()));
 
 	QAction *quitAction = new QAction("Quit");
@@ -36,11 +36,11 @@ MenuWindow::MenuWindow()
 	play->setFont(fontButton);
 	play->setAttribute(Qt::WA_TranslucentBackground);
 
-	credit = new QPushButton();
-	credit->setGeometry(QRect(175, 275, 100, 50));
-	credit->setText("Credit");
-	credit->setFont(fontButton);
-	credit->setAttribute(Qt::WA_TranslucentBackground);
+	credits = new QPushButton();
+	credits->setGeometry(QRect(175, 275, 100, 50));
+	credits->setText("Credits");
+	credits->setFont(fontButton);
+	credits->setAttribute(Qt::WA_TranslucentBackground);
 
 	quit = new QPushButton();
 	quit->setGeometry(QRect(175, 350, 100, 50));
@@ -58,12 +58,12 @@ MenuWindow::MenuWindow()
 	//Connection des bouttons à leur action
 
 	connect(play, SIGNAL(released()), this, SLOT(playFunc()));
-	connect(credit, SIGNAL(released()), this, SLOT(creditFunc()));
+	connect(credits, SIGNAL(released()), this, SLOT(creditFunc()));
 	connect(quit, SIGNAL(released()), this, SLOT(quitFunc()));
 		
 	//Ajout des boutons et du titre
 	addWidget(play);
-	addWidget(credit);
+	addWidget(credits);
 	addWidget(quit);
 	addWidget(title);
 	

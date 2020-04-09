@@ -45,6 +45,7 @@ GameWindow::~GameWindow()
 
 void GameWindow::end()
 {
+	score = 0;
 	pillarsL->stop();
 	pillarsM->stop();
 	pillarsR->stop();
