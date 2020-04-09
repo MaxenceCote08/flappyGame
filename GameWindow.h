@@ -13,7 +13,11 @@ class GameWindow : public QGraphicsScene
 public:
 	GameWindow();
 	~GameWindow();
+	QGraphicsView* returnView();
 	void end();
+	void start();
+	void focusBird();
+	Bird* getBird();
 
 private:
 	int width = 800;

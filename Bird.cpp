@@ -22,7 +22,6 @@ Bird::Bird(int windowWidth, int windowHeight)
 
 	//Animation de la chute
 	yAnimation = new QPropertyAnimation(this, "y", this);
-	fall();
 }
 
 Bird::~Bird()

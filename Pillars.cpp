@@ -15,7 +15,7 @@ Pillars::Pillars(int startingXPos)
 	addToGroup(bottom);
 
 	//Deplacement vers la gauche
-	slide();
+	//slide();
 }
 
 Pillars::~Pillars()

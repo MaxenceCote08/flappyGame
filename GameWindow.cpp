@@ -31,9 +31,6 @@ GameWindow::GameWindow()
 	//Enleve les scrollbars
 	view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-	//Affichage de la scene
-	view->show();
 }
 
 GameWindow::~GameWindow()
@@ -47,4 +44,27 @@ void GameWindow::end()
 	pillarsM->stop();
 	pillarsR->stop();
 	bird->kill();
+}
+
+void GameWindow::start()
+{
+	bird->fall();
+	pillarsL->slide();
+	pillarsM->slide();
+	pillarsR->slide();
+}
+
+QGraphicsView* GameWindow::returnView()
+{
+	return view;
+}
+
+void  GameWindow::focusBird()
+{
+	bird->setFocus();
+}
+
+Bird* GameWindow::getBird()
+{
+	return bird;
 }

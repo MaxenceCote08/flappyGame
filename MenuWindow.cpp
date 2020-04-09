@@ -3,7 +3,7 @@
 
 MenuWindow::MenuWindow()
 {
-	QFont fontTitle("Impact", 35);
+	QFont fontTitle("Impact", 20);
 	QFont fontButton("Impact", 14);
 	QFont fontMenu("Impact", 10);
 
@@ -107,6 +107,7 @@ MenuWindow::~MenuWindow()
 void MenuWindow::playFunc()
 {
 	main->setCentralWidget(window.returnView());
+	window.start();
 }
 void MenuWindow::creditFunc()
 {
@@ -118,7 +119,6 @@ void MenuWindow::creditFunc()
 
 void MenuWindow::menuFunc()
 {
-
 }
 
 void MenuWindow::quitFunc()
