@@ -59,9 +59,9 @@ QGraphicsView* GameWindow::returnView()
 	return view;
 }
 
-void  GameWindow::focusBird()
+void GameWindow::keyPressEvent(QKeyEvent* event)
 {
-	bird->setFocus();
+	bird->keyPressEvent(event);
 }
 
 Bird* GameWindow::getBird()

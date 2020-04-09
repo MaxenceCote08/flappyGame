@@ -16,7 +16,7 @@ public:
 	QGraphicsView* returnView();
 	void end();
 	void start();
-	void focusBird();
+	void keyPressEvent(QKeyEvent* event);
 	Bird* getBird();
 
 private:

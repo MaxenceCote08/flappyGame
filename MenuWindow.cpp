@@ -126,4 +126,8 @@ void MenuWindow::quitFunc()
 	QApplication::quit();
 }
 
-
+void MenuWindow::keyPressEvent(QKeyEvent* event)
+{
+	window.getBird()->setFocus();
+	window.keyPressEvent(event);
+}

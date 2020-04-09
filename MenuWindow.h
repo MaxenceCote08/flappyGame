@@ -18,6 +18,7 @@ class MenuWindow : public QGraphicsScene
 public:
 	MenuWindow();
 	~MenuWindow();
+	void keyPressEvent(QKeyEvent* event);
 
 private:
 	int width = 450;
