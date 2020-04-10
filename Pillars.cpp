@@ -17,7 +17,7 @@ Pillars::Pillars(int startingXPos)
 
 Pillars::~Pillars()
 {
-	qDebug() << "Pillars destroyed" << endl;
+	//qDebug() << "Pillars destroyed" << endl;
 	delete top; // pas sur si cest necessaire ??
 	delete bottom; // pas sur si cest necessaire ??
 }
@@ -37,6 +37,7 @@ void Pillars::reset()
 	slide();
 	stop();
 	isFirstSlide = true;
+	scoreFlag = true;
 }
 
 void Pillars::setX(qreal x)
@@ -80,7 +81,7 @@ void Pillars::slide()
 	xAnimation->setStartValue(start);
 	xAnimation->setEndValue(-width);
 	xAnimation->setEasingCurve(QEasingCurve::Linear);
-	xAnimation->setDuration(6*(start+width)); //deplacement total * un certain facteur de vitesse, diminuer pour augmenter la vitesse
+	xAnimation->setDuration(4*(start+width)); //deplacement total * un certain facteur de vitesse, diminuer pour augmenter la vitesse
 	xAnimation->start();
 
 	//Rappel de lanimation lorsquelle termine

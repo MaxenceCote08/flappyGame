@@ -9,6 +9,7 @@
 #include <QMenu>
 #include <QApplication>
 #include <QMessageBox>
+#include <QFrame>
 
 #include "GameWindow.h"
 
@@ -30,8 +31,9 @@ private:
 	QPushButton* play;
 	QPushButton* quit;
 	QPushButton* credits;
+	QPushButton* how;
 
-	QLabel* title;
+	QLabel* title,*titleOutline;
 
 	GameWindow window;
 
@@ -39,4 +41,5 @@ private slots:
 	void playFunc();
 	void creditFunc();
 	void quitFunc();
+	void howFunc();
 };

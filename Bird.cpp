@@ -26,7 +26,7 @@ Bird::Bird(int windowWidth, int windowHeight)
 
 Bird::~Bird()
 {
-	qDebug() << "Bird Destroyed" << endl;
+	//qDebug() << "Bird Destroyed" << endl;
 }
 
 qreal Bird::y() const
@@ -58,7 +58,7 @@ void Bird::fly()
 	//Animation du vol
 	yAnimation->stop();
 	yAnimation->setStartValue(y());
-	yAnimation->setEndValue(y()-sceneHeight/9);
+	yAnimation->setEndValue(y()-sceneHeight/8.25);
 	yAnimation->setEasingCurve(QEasingCurve::OutQuad);
 	yAnimation->setDuration(275);
 	yAnimation->start();
@@ -73,7 +73,7 @@ void Bird::fall()
 	yAnimation->setStartValue(y());
 	yAnimation->setEndValue(groundDistance);
 	yAnimation->setEasingCurve(QEasingCurve::InQuad);
-	yAnimation->setDuration(700);
+	yAnimation->setDuration(575);
 	yAnimation->start();
 }
 

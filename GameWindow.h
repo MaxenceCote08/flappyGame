@@ -1,8 +1,11 @@
 #pragma once
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QApplication>
 #include <QPushButton>
+#include <QColor>
 #include <QGraphicsProxyWidget>
+#include <QMessageBox>
 #include "Bird.h"
 #include "Pillars.h"
 
@@ -17,9 +20,9 @@ public:
 	void end();
 	void start();
 	void keyPressEvent(QKeyEvent* event);
-	Bird* getBird();
-	Pillars* getPillars(QString pillarName);
-
+	void updateScore();
+	void resetScore();
+	void playAgainMessage();
 
 private:
 	int width = 800;
@@ -29,4 +32,5 @@ private:
 	Bird* bird;
 	Pillars* pillarsL,*pillarsM, *pillarsR;
 	QGraphicsProxyWidget *proxy;
+	QGraphicsTextItem* affichageScore, *affichageScoreOutline, *gameOver, *gameOverOutline;
 };

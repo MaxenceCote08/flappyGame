@@ -33,7 +33,7 @@ private:
 	int height = 335;
 	int botMaxPos = 215;
 	int botMinPos = 410;
-	int spaceBetween = 130;
+	int spaceBetween = 145;
 	int resetXValue;
 	bool isFirstSlide = true;
 	bool scoreFlag = true;
