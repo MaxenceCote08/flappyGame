@@ -2,7 +2,7 @@
 
 GameWindow::GameWindow()
 {
-	
+
 	QSound::play("./sound/Gerudo-Valley-The-Legend-of-Zelda-Ocarina-Of-Time.wav");
 	//Creation de la scene graphique
 	view = new QGraphicsView(this);

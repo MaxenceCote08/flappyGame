@@ -3,7 +3,6 @@
 #include <QMediaPlayer>
 
 
-
 Bird::Bird(int windowWidth, int windowHeight)
 {
 	//Recupere les dimensions de la scene
@@ -50,6 +49,7 @@ void Bird::keyPressEvent(QKeyEvent*)
 {
 	if (isAlive)
 	{
+		
 		fly();
 		birdFly->play();
 	}
@@ -94,6 +94,7 @@ void Bird::setGroundDistance()
 void Bird::kill()
 {
 	birdDead->play();
+	QSound::play("./sound/dead.wav");
 	isAlive = false;
 }
 
