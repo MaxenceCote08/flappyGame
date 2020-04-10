@@ -2,6 +2,7 @@
 
 GameWindow::GameWindow()
 {
+	QSound::play("./sound/Gerudo-Valley-The-Legend-of-Zelda-Ocarina-Of-Time.wav");
 	//Creation de la scene graphique
 	view = new QGraphicsView(this);
 	view->setFixedSize(width,height);
@@ -108,11 +109,13 @@ void GameWindow::keyPressEvent(QKeyEvent* event)
 	if (event->key() == Qt::Key_Escape)
 	{
 		QApplication::quit();
+
 	}
 
 	if (bird->getBirdState())
 	{
 		bird->keyPressEvent(event);
+		QSound::play("./sound/jump.wav");
 	}
 	else
 	{

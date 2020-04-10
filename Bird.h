@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QPropertyAnimation>
 #include <QGraphicsPixmapItem>
+#include <QSound>
 
 class Bird : public QObject, public QGraphicsPixmapItem
 {
