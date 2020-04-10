@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QPropertyAnimation>
 #include <QGraphicsPixmapItem>
+#include <QSound>
 
 class Bird : public QObject, public QGraphicsPixmapItem
 {
@@ -37,4 +38,6 @@ private:
 	qreal m_y=0;
 	QPropertyAnimation* yAnimation;
 	void setGroundDistance();
+	QSound *birdDead;
+	QSound *birdFly;
 };

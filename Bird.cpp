@@ -1,5 +1,8 @@
 #include "Bird.h"
 #include <QDebug>
+#include <QMediaPlayer>
+
+
 
 Bird::Bird(int windowWidth, int windowHeight)
 {
@@ -22,6 +25,9 @@ Bird::Bird(int windowWidth, int windowHeight)
 
 	//Animation de la chute
 	yAnimation = new QPropertyAnimation(this, "y", this);
+	//sound 
+	birdDead = new QSound("./sound/dead.wav");
+	birdFly = new QSound("./sound/jump.wav");
 }
 
 Bird::~Bird()
@@ -45,6 +51,7 @@ void Bird::keyPressEvent(QKeyEvent*)
 	if (isAlive)
 	{
 		fly();
+		birdFly->play();
 	}
 }
 
@@ -65,6 +72,8 @@ void Bird::fly()
 
 	//Lorsque lanimation finit, appelle lanimation de chute
 	connect(yAnimation, &QPropertyAnimation::finished, [=]() {fall(); });
+	//sound
+	
 }
 
 void Bird::fall()
@@ -84,6 +93,7 @@ void Bird::setGroundDistance()
 
 void Bird::kill()
 {
+	birdDead->play();
 	isAlive = false;
 }
 
