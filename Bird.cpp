@@ -1,7 +1,5 @@
 #include "Bird.h"
 #include <QDebug>
-#include <QMediaPlayer>
-
 
 Bird::Bird(int windowWidth, int windowHeight)
 {
@@ -11,8 +9,12 @@ Bird::Bird(int windowWidth, int windowHeight)
 	groundDistance = sceneHeight - y() - height;
 
 	//Creation de loiseau
-	auto Bird = QPixmap("./Images/Bird.png");
-	setPixmap(Bird.scaled(width,height));
+	auto bird = QPixmap("./Images/Bird.png");
+	setPixmap(bird.scaled(width,height));
+
+	//SetUp son
+	jumpSound = new QSound("./Sounds/jump.wav");
+	deathSound = new QSound("./Sounds/death.wav");
 	
 	//Positionnement de loiseau (separement pour pas chier les coordonnees de lanimation)
 	setY(sceneHeight / 2);
@@ -24,14 +26,14 @@ Bird::Bird(int windowWidth, int windowHeight)
 
 	//Animation de la chute
 	yAnimation = new QPropertyAnimation(this, "y", this);
-	//sound 
-	birdDead = new QSound("./sound/dead.wav");
-	birdFly = new QSound("./sound/jump.wav");
 }
 
 Bird::~Bird()
 {
 	//qDebug() << "Bird Destroyed" << endl;
+	delete jumpSound;
+	delete deathSound;
+	delete yAnimation;
 }
 
 qreal Bird::y() const
@@ -49,9 +51,7 @@ void Bird::keyPressEvent(QKeyEvent*)
 {
 	if (isAlive)
 	{
-		
 		fly();
-		birdFly->play();
 	}
 }
 
@@ -62,18 +62,29 @@ void Bird::fly()
 		firstJump = false;
 	}
 
+	//Son
+	if (sound)
+	{
+		if (isAlive)
+		{
+			jumpSound->play();
+		}
+		else
+		{
+			deathSound->play();
+		}
+	}
+
 	//Animation du vol
 	yAnimation->stop();
 	yAnimation->setStartValue(y());
 	yAnimation->setEndValue(y()-sceneHeight/8.25);
 	yAnimation->setEasingCurve(QEasingCurve::OutQuad);
-	yAnimation->setDuration(275);
+	yAnimation->setDuration(300);
 	yAnimation->start();
 
 	//Lorsque lanimation finit, appelle lanimation de chute
 	connect(yAnimation, &QPropertyAnimation::finished, [=]() {fall(); });
-	//sound
-	
 }
 
 void Bird::fall()
@@ -93,8 +104,6 @@ void Bird::setGroundDistance()
 
 void Bird::kill()
 {
-	birdDead->play();
-	QSound::play("./sound/dead.wav");
 	isAlive = false;
 }
 
@@ -110,4 +119,16 @@ void Bird::reset()
 	setY(sceneHeight / 2);
 	setPos(sceneWidth / 2 - width / 2, y());
 	yAnimation->stop();
+}
+
+void Bird::soundToggle()
+{
+	if (sound)
+	{
+		sound = false;
+	}
+	else
+	{
+		sound = true;
+	}
 }

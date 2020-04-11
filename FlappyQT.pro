@@ -6,4 +6,4 @@ SOURCES     += Main.cpp GameWindow.cpp Bird.cpp Pillars.cpp MenuWindow.cpp
 INCLUDEPATH += ../flappyGame
 
 #LIBS+= 
-QT += widgets
+QT += widgets multimedia

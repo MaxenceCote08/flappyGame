@@ -2,8 +2,6 @@
 
 GameWindow::GameWindow()
 {
-
-	QSound::play("./sound/Gerudo-Valley-The-Legend-of-Zelda-Ocarina-Of-Time.wav");
 	//Creation de la scene graphique
 	view = new QGraphicsView(this);
 	view->setFixedSize(width,height);
@@ -12,6 +10,24 @@ GameWindow::GameWindow()
 	//Ajout fond scene
 	auto background = QBrush(QImage("./Images/background.jpg").scaled(width,height));
 	view->setBackgroundBrush(background);
+
+	//Ajout Musique
+	music = new QSound("./Sounds/music.wav");
+	music->setLoops(QSound::Infinite);
+	music->play();
+
+	scoreSound = new QSound("./Sounds/score.wav");
+
+	//Logos son
+	auto muteLogo = QPixmap("./Images/mute.png");
+	mute = new QGraphicsPixmapItem;
+	mute->setPixmap(muteLogo.scaled(50,50));
+	mute->setPos(740, 10);
+
+	auto unmuteLogo = QPixmap("./Images/unmute.png");
+	unmute = new QGraphicsPixmapItem;
+	unmute->setPixmap(unmuteLogo.scaled(50,50));
+	unmute->setPos(740, 10);
 
 	//Ajout score en haut à gauche
 	QFont fontScore("Impact", 20);
@@ -25,6 +41,7 @@ GameWindow::GameWindow()
 	affichageScore->setFont(fontScore);
 	affichageScoreOutline->setFont(fontScore);
 
+
 	//GameOver
 	gameOver = new QGraphicsTextItem;
 	gameOverOutline = new QGraphicsTextItem;
@@ -35,7 +52,6 @@ GameWindow::GameWindow()
 	gameOverOutline->setPos(175 - 4, height / 2 - 40);
 	gameOver->setFont(fontScore);
 	gameOverOutline->setFont(fontScore);
-
 
 	//Creation objets
 	bird = new Bird(width,height);
@@ -52,7 +68,8 @@ GameWindow::GameWindow()
 	addItem(affichageScoreOutline);
 	addItem(gameOver);
 	addItem(gameOverOutline);
-	
+	addItem(mute);
+	addItem(unmute);
 
 	//Connections des signaux pour detection des collisions
 	connect(pillarsL, &Pillars::birdHit, [=] { end(); playAgainMessage(); });
@@ -66,9 +83,9 @@ GameWindow::GameWindow()
 		pillarsR->slide(); });
 
 	//Connections des signaux pour lupdate du score
-	connect(pillarsL, &Pillars::upScore, [=] {score++; updateScore(); });
-	connect(pillarsM, &Pillars::upScore, [=] {score++; updateScore(); });
-	connect(pillarsR, &Pillars::upScore, [=] {score++; updateScore(); });
+	connect(pillarsL, &Pillars::upScore, [=] {score++; if (sound) { scoreSound->play(); } updateScore(); });
+	connect(pillarsM, &Pillars::upScore, [=] {score++; if (sound) { scoreSound->play(); } updateScore(); });
+	connect(pillarsR, &Pillars::upScore, [=] {score++; if (sound) { scoreSound->play(); } updateScore(); });
 
 	//Enleve les scrollbars
 	view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -78,6 +95,14 @@ GameWindow::GameWindow()
 GameWindow::~GameWindow()
 {
 	//qDebug() << "Window Destroyed" << endl;
+	delete scoreSound;
+	delete music;
+	delete affichageScore;
+	delete affichageScoreOutline;
+	delete gameOver;
+	delete gameOverOutline;
+	delete mute;
+	delete unmute;
 }
 
 void GameWindow::end()
@@ -86,14 +111,26 @@ void GameWindow::end()
 	pillarsL->stop();
 	pillarsM->stop();
 	pillarsR->stop();
-	bird->fly();
 	bird->kill();
+	bird->fly();
 }
 
 void GameWindow::start()
 {
 	gameOver->hide();
 	gameOverOutline->hide();
+
+	if (sound)
+	{
+		unmute->show();
+		mute->hide();
+	}
+	else
+	{
+		mute->show();
+		unmute->hide();
+	}
+
 	bird->reset();
 	pillarsL->reset();
 	pillarsM->reset();
@@ -110,13 +147,11 @@ void GameWindow::keyPressEvent(QKeyEvent* event)
 	if (event->key() == Qt::Key_Escape)
 	{
 		QApplication::quit();
-
 	}
 
 	if (bird->getBirdState())
 	{
 		bird->keyPressEvent(event);
-		QSound::play("./sound/jump.wav");
 	}
 	else
 	{
@@ -142,4 +177,23 @@ void GameWindow::playAgainMessage()
 {
 	gameOver->show();
 	gameOverOutline->show();
+}
+
+void GameWindow::soundToggle()
+{
+	if (sound)
+	{
+		unmute->hide();
+		mute->show();
+		music->stop();
+		sound = false;
+	}
+	else
+	{
+		mute->hide();
+		unmute->show();
+		music->play();
+		sound = true;
+	}
+	bird->soundToggle();
 }

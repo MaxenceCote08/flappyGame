@@ -2,9 +2,9 @@
 #include <QKeyEvent>
 #include <iostream>
 #include <QTimer>
+#include <QSound>
 #include <QPropertyAnimation>
 #include <QGraphicsPixmapItem>
-#include <QSound>
 
 class Bird : public QObject, public QGraphicsPixmapItem
 {
@@ -20,6 +20,7 @@ public :
 	void kill();
 	bool getBirdState();
 	void reset();
+	void soundToggle();
 
 public slots:
 	void setY(qreal y);
@@ -34,10 +35,10 @@ private:
 	int sceneWidth;
 	bool isAlive = true;
 	bool firstJump = true;
+	bool sound = true;
 	qreal groundDistance;
 	qreal m_y=0;
 	QPropertyAnimation* yAnimation;
+	QSound* jumpSound, *deathSound;
 	void setGroundDistance();
-	QSound *birdDead;
-	QSound *birdFly;
 };

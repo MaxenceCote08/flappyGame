@@ -18,8 +18,8 @@ Pillars::Pillars(int startingXPos)
 Pillars::~Pillars()
 {
 	//qDebug() << "Pillars destroyed" << endl;
-	delete top; // pas sur si cest necessaire ??
-	delete bottom; // pas sur si cest necessaire ??
+	delete top;
+	delete bottom;
 }
 
 qreal Pillars::x() const
@@ -81,7 +81,7 @@ void Pillars::slide()
 	xAnimation->setStartValue(start);
 	xAnimation->setEndValue(-width);
 	xAnimation->setEasingCurve(QEasingCurve::Linear);
-	xAnimation->setDuration(4*(start+width)); //deplacement total * un certain facteur de vitesse, diminuer pour augmenter la vitesse
+	xAnimation->setDuration(5*(start+width)); //deplacement total * un certain facteur de vitesse, diminuer pour augmenter la vitesse
 	xAnimation->start();
 
 	//Rappel de lanimation lorsquelle termine

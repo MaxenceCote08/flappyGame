@@ -42,4 +42,5 @@ private slots:
 	void creditFunc();
 	void quitFunc();
 	void howFunc();
+	void soundFunc();
 };

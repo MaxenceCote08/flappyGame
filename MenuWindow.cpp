@@ -19,13 +19,16 @@ MenuWindow::MenuWindow()
 	QAction *howAction = new QAction("How To Play");
 	connect(howAction, SIGNAL(triggered()), SLOT(howFunc()));
 
+	QAction *soundAction = new QAction("Sound ON/OFF");
+	connect(soundAction, SIGNAL(triggered()), SLOT(soundFunc()));
+
 	//Creation de la scene graphique
 	view = new QGraphicsView(this);
 	view->setFixedSize(width+10, height);
 	view->setSceneRect(0, 0, width+10, height);
 
 	//Ajout fond scene
-	auto background = QBrush(QImage("./Images/background.jpg").scaled(width, height));
+	auto background = QBrush(QImage("./Images/background.jpg").scaled(width+10, height));
 	view->setBackgroundBrush(background);
 
 	//Restrictions usager
@@ -94,6 +97,7 @@ MenuWindow::MenuWindow()
 	menu->setTitle("Menu");
 	menu->addAction(playAction);
 	menu->addAction(howAction);
+	menu->addAction(soundAction);
 	menu->addAction(creditAction);
 	menu->addAction(quitAction);
 	
@@ -133,7 +137,6 @@ void MenuWindow::playFunc()
 	}
 	else 
 	{
-		window.end();
 		window.resetScore();
 		window.updateScore();
 	}
@@ -160,4 +163,9 @@ void MenuWindow::creditFunc()
 	message->setIcon(QMessageBox::Information);
 	message->setText("This application is a project made by Jonathan D, Maxence C, Martin G and Emile C.\nThis game was created in the context of the APP7 of GI.\nThe game is based on the viral game called Flappy Bird.");
 	message->show();
+}
+
+void MenuWindow::soundFunc()
+{
+	window.soundToggle();
 }
