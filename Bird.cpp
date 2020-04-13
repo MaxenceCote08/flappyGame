@@ -57,31 +57,35 @@ void Bird::keyPressEvent(QKeyEvent*)
 
 void Bird::fly()
 {
-	if (firstJump) {
-		emit hasMoved();
-		firstJump = false;
-	}
-
-	//Son
-	if (sound)
+	if (y() >= 5)
 	{
-		if (isAlive)
-		{
-			jumpSound->play();
+		if (firstJump) {
+			emit hasMoved();
+			firstJump = false;
 		}
-		else
-		{
-			deathSound->play();
-		}
-	}
 
-	//Animation du vol
-	yAnimation->stop();
-	yAnimation->setStartValue(y());
-	yAnimation->setEndValue(y()-sceneHeight/8.25);
-	yAnimation->setEasingCurve(QEasingCurve::OutQuad);
-	yAnimation->setDuration(300);
-	yAnimation->start();
+		//Son
+		if (sound)
+		{
+			if (isAlive)
+			{
+				jumpSound->play();
+			}
+			else
+			{
+				deathSound->play();
+			}
+		}
+
+		//Animation du vol
+
+		yAnimation->stop();
+		yAnimation->setStartValue(y());
+		yAnimation->setEndValue(y() - sceneHeight / 8.25);
+		yAnimation->setEasingCurve(QEasingCurve::OutQuad);
+		yAnimation->setDuration(300);
+		yAnimation->start();
+	}
 
 	//Lorsque lanimation finit, appelle lanimation de chute
 	connect(yAnimation, &QPropertyAnimation::finished, [=]() {fall(); });
