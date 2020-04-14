@@ -1,3 +1,14 @@
+/*
+  APP7 - Informatique : interfaces graphiques
+
+  Université de sherbrooke - Génie informatique
+
+	Émile Chartray – chae3211
+	Maxence Côté – cotm3032
+	Jonathan Degoede – degj2706
+	Martin Giroux – girm1002
+*/
+
 #include "MenuWindow.h"
 
 
@@ -161,7 +172,7 @@ void MenuWindow::creditFunc()
 	QMessageBox* message = new QMessageBox();
 	message->setWindowTitle("Credits for Flappy game");
 	message->setIcon(QMessageBox::Information);
-	message->setText("This application is a project made by Jonathan D, Maxence C, Martin G and Emile C.\nThis game was created in the context of the APP7 of GI.\nThe game is based on the viral game called Flappy Bird.");
+	message->setText("This application is a project made by Jonathan D, Maxence C, Martin G and Emile C.\nThis game was created in the context of the APP7 of GI.\nThe game is based on the viral game called Flappy Bird.\n------------------------------\nEmile Chartray chae3211\nMaxence Cote cotm3032\nJonathan Degoede degj2706\nMartin Giroux girm1002");
 	message->show();
 }
 
